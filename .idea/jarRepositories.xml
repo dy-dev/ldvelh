@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="RemoteRepositoriesConfiguration">
+    <remote-repository>
+      <option name="id" value="central" />
+      <option name="name" value="Central Repository" />
+      <option name="url" value="https://repo.maven.apache.org/maven2" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="c6e263bc-ecfb-450b-8238-cbdd6e3a4e67" />
+      <option name="name" value="c6e263bc-ecfb-450b-8238-cbdd6e3a4e67" />
+      <option name="url" value="https://mvnrepository.com/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="0c1d3e0a-74fa-48f5-8978-c6cade647827" />
+      <option name="name" value="0c1d3e0a-74fa-48f5-8978-c6cade647827" />
+      <option name="url" value="https://mvnrepository.com/artifact/org.openjfx" />
+    </remote-repository>
+  </component>
+</project>

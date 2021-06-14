@@ -1,5 +1,9 @@
 package com.arcreane.ldvelh.controller;
 
+/**
+ * Class used to display all necessary menu when manipulating the
+ * model in a console application
+ */
 public class Menus {
 
     public void displayMainMenu(ConsoleController controller) {

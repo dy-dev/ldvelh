@@ -6,12 +6,15 @@ import com.arcreane.ldvelh.service.EditorService;
 import com.arcreane.ldvelh.service.PlayerService;
 
 import java.util.Scanner;
-import java.util.function.BiConsumer;
 import java.util.function.Consumer;
-import java.util.function.Function;
 import java.util.function.Supplier;
 
+/**
+ * Class to control the flow of the data.
+ * In this case, allow the user to interact with the model
+ */
 public class ConsoleController {
+
     private Menus menus;
     private Scanner scan;
 
@@ -24,10 +27,19 @@ public class ConsoleController {
     private EditorService editorService;
     private PlayerService playerService;
 
+    /**
+     * Default constructor
+     */
     public ConsoleController() {
         this(new EditorService(), new PlayerService());
     }
 
+    /**
+     * Constructor taking  2 parameters
+     *
+     * @param editorService
+     * @param playerService
+     */
     public ConsoleController(EditorService editorService, PlayerService playerService) {
         this.editorService = editorService;
         this.playerService = playerService;
@@ -38,6 +50,10 @@ public class ConsoleController {
         currentChapter = null;
     }
 
+    /***
+     * List of getter / setter
+     * Part of java beans philosophy
+     */
     public boolean isKeepEditing() {
         return keepEditing;
     }
@@ -50,51 +66,34 @@ public class ConsoleController {
         return editChapter;
     }
 
-    public void startApp() {
-        while (!keepEditing) {
-            menus.displayMainMenu(this);
-        }
-        scan.close();
-    }
-
-
+    /**
+     * Method used to access users feedback
+     */
     public String getUserSelection() {
         return scan.nextLine();
     }
 
-    public void quitMenu(MenuType type) {
-        switch (type) {
-            case MAIN -> {
-                keepEditing = true;
-            }
-            case BOOK -> {
-                editBook = false;
-            }
-            case CHAPTER -> {
-                editChapter = false;
-            }
-        }
+    /**
+     * Entry function to start the interaction
+     */
+    public void startApp() {
+        showMenu(MenuType.MAIN);
+        scan.close();
     }
 
-    public void createBook() {
-        System.out.println("What is the book title?");
-        String title = scan.nextLine();
-        currentBook = new Book(title);
-
-        editorService.addBookToLibrary(currentBook);
-        
-        showMenu(MenuType.BOOK);
-    }
-
+    /**
+     * Method to manage what menu to display and how to stop it
+     * @param type
+     */
     public void showMenu(MenuType type) {
+        //The menu is a reference to the method to call depending on the menu type passed in parameter
         Consumer<ConsoleController> menu = null;
+        //The condition is a reference to the method to call to know when to stop displaying the menu
         Supplier<Boolean> condition = null;
         switch (type) {
             case MAIN -> {
-                condition = this::isKeepEditing; //faire une référence sur une méthode permettant de connaitre la
-                // valeur de l'attribut quit de l'instance "this" de la classe controller
-                menu = menus::displayMainMenu; // faire une référence sur la méthode displayMainMenus
-                // de l'instance menus de la classe Menu
+                condition = this::isKeepEditing;
+                menu = menus::displayMainMenu;
             }
             case BOOK -> {
                 editBook = true;
@@ -112,7 +111,40 @@ public class ConsoleController {
         }
     }
 
+    /**
+     * Method called when user wants to quit a menu
+     * The parameter tells which menu to quit
+     * @param type
+     */
+    public void quitMenu(MenuType type) {
+        switch (type) {
+            case MAIN -> {
+                keepEditing = true;
+            }
+            case BOOK -> {
+                editBook = false;
+            }
+            case CHAPTER -> {
+                editChapter = false;
+            }
+        }
+    }
 
+    /**
+     * Method called when the user wants to create a book
+     */
+    public void createBook() {
+        System.out.println("What is the book title?");
+        String title = scan.nextLine();
+        currentBook = new Book(title);
+        editorService.addBookToLibrary(currentBook);
+        showMenu(MenuType.BOOK);
+    }
+
+
+    /**
+     * Method called when the user wants to create a new chapter to the current book
+     */
     public void createNewChapter() {
         currentChapter = new Chapter();
         if (currentBook != null) {
@@ -125,6 +157,10 @@ public class ConsoleController {
 
     }
 
+
+    /**
+     * Method called when the user wants to add text to an existing chapter
+     */
     public void addTextTochapter() {
         if (currentChapter != null) {
             String text = scan.nextLine();
@@ -132,6 +168,9 @@ public class ConsoleController {
         }
     }
 
+    /**
+     * Method called when the user wants to save his changes
+     */
     public void saveChanges() {
         if (currentBook != null)
             editorService.saveBook(currentBook);

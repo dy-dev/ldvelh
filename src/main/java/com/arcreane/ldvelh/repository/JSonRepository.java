@@ -6,21 +6,33 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * Repository in the form of JSon files saved on disk
+ */
 public class JSonRepository {
     String path;
 
+    /**
+     * Constructor
+     * It starts by checking if the library folder exists and if it doesn't it creates it
+     *
+     * @param subDir Folder where to save the files
+     */
     public JSonRepository(String subDir) {
         path = System.getProperty("user.home") + "\\ldvelh\\" + subDir;
         File directory = new File(path);
         if (! directory.exists()){
             System.out.println("Create path : " + path);
-            directory.mkdirs();
-            // If you require it to make the entire directory path including parents,
-            // use directory.mkdirs(); here instead.
+            directory.mkdirs(); //This method create the whole folder hierarchy if needs be
         }
 
     }
 
+    /**
+     * Create the folder that will contains all files needed by the book (images, sound, items infos...)
+     * Then saves the book by calling the {@link #saveBook(Book)} method
+     * @param book
+     */
     public void addBook(Book book) {
         String bookDirectory = path + "\\" + book.getTitle();
         File directory = new File(bookDirectory);
@@ -28,6 +40,11 @@ public class JSonRepository {
         saveBook(book);
     }
 
+    /**
+     * Method calling the ObjectMapper of the Jackson Library to convert the javabean Book object
+     * to a json file
+     * @param book
+     */
     public void saveBook(Book book) {
         try {
             ObjectMapper objectMapper = new ObjectMapper();

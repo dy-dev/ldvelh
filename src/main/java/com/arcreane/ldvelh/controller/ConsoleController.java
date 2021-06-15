@@ -81,8 +81,10 @@ public class ConsoleController {
         scan.close();
     }
 
+    //region Menu Management
     /**
      * Method to manage what menu to display and how to stop it
+     *
      * @param type
      */
     public void showMenu(MenuType type) {
@@ -114,12 +116,13 @@ public class ConsoleController {
     /**
      * Method called when user wants to quit a menu
      * The parameter tells which menu to quit
+     *
      * @param type
      */
     public void quitMenu(MenuType type) {
         switch (type) {
             case MAIN -> {
-                keepEditing = true;
+                keepEditing = false;
             }
             case BOOK -> {
                 editBook = false;
@@ -129,6 +132,9 @@ public class ConsoleController {
             }
         }
     }
+    //endregion
+
+    //region Book Management
 
     /**
      * Method called when the user wants to create a book
@@ -138,6 +144,23 @@ public class ConsoleController {
         String title = scan.nextLine();
         currentBook = new Book(title);
         editorService.addBookToLibrary(currentBook);
+        showMenu(MenuType.BOOK);
+    }
+
+    /***
+     * Method called to modify a book
+     * Start by displaying all available books, then ask the user to select one
+     */
+    public void modifyBook() {
+        int i = 0;
+        var bookList = editorService.getExistingBookList();
+        for (var book : bookList) {
+            System.out.println((i++) + " : " + book);
+        }
+        int index = Integer.parseInt(scan.nextLine());
+        String bookTitle = bookList[index];
+        currentBook = editorService.getBookWithTitle(bookTitle);
+        System.out.println(currentBook);
         showMenu(MenuType.BOOK);
     }
 
@@ -157,6 +180,10 @@ public class ConsoleController {
 
     }
 
+    //end region
+    //endregion
+
+    //region Chapter Management
 
     /**
      * Method called when the user wants to add text to an existing chapter
@@ -168,11 +195,72 @@ public class ConsoleController {
         }
     }
 
+
+    /**
+     * Method called when the user wants to add caption to an existing chapter
+     */
+    public void addCaptionTochapter() {
+        if (currentChapter != null) {
+            String caption = scan.nextLine();
+            currentChapter.setCaption(caption);
+        }
+    }
+
     /**
      * Method called when the user wants to save his changes
      */
     public void saveChanges() {
         if (currentBook != null)
-            editorService.saveBook(currentBook);
+            editorService.saveBookContent(currentBook);
     }
+
+    public void linkOptions() {
+        System.out.println("Enter the chapters id to which the current chapter can lead to (separate the id with commas) ");
+        displayChapterList();
+        var chapterIndexes = scan.nextLine().split(",");
+        if (chapterIndexes.length > 0) {
+            for (var index : chapterIndexes) {
+                var chapter = currentBook.getChapter(Integer.parseInt(index));
+                if (chapter == null) {
+                    System.out.println("Chapter does not exists, type \"y\" to create it or any other key not to ? " +
+                            "(chapterId will be modified because they are automatically generated)");
+                    if (scan.nextLine().equals("y")) {
+                        System.out.println("Please enter caption");
+                        String caption = scan.nextLine();
+                        System.out.println("Please enter text");
+                        String text = scan.nextLine();
+                        chapter = new Chapter(caption, text);
+                        currentBook.addChapter(chapter);
+                    }
+                }
+                if (chapter != null)
+                    currentChapter.addOption(chapter);
+            }
+        }
+    }
+
+    /***
+     * Utility function to display all chapters in the form
+     * id : caption
+     * to ease the user's selection
+     */
+    private void displayChapterList() {
+        var chapterList = currentBook.getChapters();
+        for (var chapter :chapterList.values()) {
+            System.out.println(chapter.getId() + " : " + chapter.getCaption());
+        }
+    }
+
+    /***
+     * Method called to modify an existing chapter
+     * The user first see all the available chapter thanks to the call to
+     * {@link #displayChapterList()} then select the one it wants to modify
+     */
+    public void modifyExistingChapter() {
+        displayChapterList();
+        var chapterIndex = Integer.parseInt(scan.nextLine());
+        currentChapter = currentBook.getChapter(chapterIndex);
+        showMenu(MenuType.CHAPTER);
+    }
+    //endregion
 }

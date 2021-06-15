@@ -33,7 +33,29 @@ public class EditorService {
      * Save the content of the book passed in parameter
      * @param book
      */
-    public void saveBook(Book book) {
+    public void saveBookContent(Book book) {
         repository.saveBook(book);
+    }
+
+    public String[] getExistingBookList() {
+        return repository.listLibraryBooks();
+    }
+
+    /***
+     * (Useless for now)
+     * @param index
+     * @return
+     */
+    public Book getBookAtIndex(int index) {
+        return repository.getBook(index);
+    }
+
+    /**
+     * Method to retrieve a book in repository from its name
+     * @param bookTitle
+     * @return
+     */
+    public Book getBookWithTitle(String bookTitle) {
+        return repository.findBookWithTitle(bookTitle);
     }
 }

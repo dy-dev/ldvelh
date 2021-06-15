@@ -10,6 +10,7 @@ public class Book {
     private String title;
     private Set<Tags> types;
     private Map<Integer, Chapter> chapters;
+    private int globalIndexValue;
 
     public Book(){
         this("");
@@ -18,7 +19,16 @@ public class Book {
     public Book(String title) {
         this.title = title;
         chapters = new HashMap<>();
+        globalIndexValue = 0;
+        Chapter.setGlobalIndex(0);
+   }
+
+    public void initialize() {
+        Chapter.setGlobalIndex(globalIndexValue);
     }
+
+    //region Getter / Setter
+
 
     public String getTitle() {
         return title;
@@ -44,7 +54,29 @@ public class Book {
         this.chapters = chapters;
     }
 
+    public int getGlobalIndexValue() {
+        return globalIndexValue;
+    }
+
+    public void setGlobalIndexValue(int globalIndexValue) {
+        this.globalIndexValue = globalIndexValue;
+    }
+    //endregion
+
     public void addChapter(Chapter chapter) {
         chapters.put(chapter.getId(), chapter);
+        globalIndexValue = Chapter.getGlobalIndex();
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "title='" + title + '\'' +
+                ", nb chapters= " + chapters.size() +
+                '}';
+    }
+
+    public Chapter getChapter(int parseInt) {
+        return chapters.get(parseInt);
     }
 }

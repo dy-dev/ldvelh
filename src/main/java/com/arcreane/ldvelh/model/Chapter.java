@@ -21,6 +21,13 @@ public class Chapter {
      * Default constructor
      */
     public Chapter() {
+        this("","");
+    }
+
+    public Chapter(String text, String caption) {
+        this.text = text;
+        this.caption = caption;
+        options = new HashMap<>();
         id = globalIndex++;
     }
 
@@ -78,5 +85,9 @@ public class Chapter {
 
     public void setEnd(boolean end) {
         this.end = end;
+    }
+
+    public void addOption(Chapter chapter) {
+        options.put(chapter.getId(),chapter);
     }
 }

@@ -4,6 +4,7 @@ import com.arcreane.ldvelh.model.Book;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
+import java.io.FilenameFilter;
 import java.io.IOException;
 
 /**
@@ -51,6 +52,49 @@ public class JSonRepository {
             objectMapper.writeValue(new File(path+ "\\" +book.getTitle()+"\\content.json"), book);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public String[] listLibraryBooks() {
+        File directory = new File(path);
+        return directory.list(new FilenameFilter() {
+            @Override
+            public boolean accept(File current, String name) {
+                return new File(current, name).isDirectory();
+            }
+        });
+    }
+
+    /**
+     * (Useless for now)
+     * @param index
+     * @return
+     */
+    public Book getBook(int index) {
+        return null;
+    }
+
+    /***
+     * Retrieves a book in library by using its name
+     *
+     * @param bookTitle
+     * @return
+     */
+    public Book findBookWithTitle(String bookTitle) {
+        String bookDirName = path + "\\" + bookTitle;
+        File directory = new File(bookDirName);
+        if (!directory.exists()) {
+            return null;
+        }
+
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            Book book = objectMapper.readValue(new File(bookDirName+"\\content.json"), Book.class);
+            book.initialize();
+            return book;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
         }
     }
 }

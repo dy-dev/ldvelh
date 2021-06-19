@@ -1,10 +1,19 @@
 package com.arcreane.ldvelh.model;
 
+import com.arcreane.ldvelh.repository.JsonChapterDeserializer;
+import com.arcreane.ldvelh.repository.JsonChapterSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import org.apache.commons.lang3.ArrayUtils;
+
 import java.util.*;
 
 /**
  * 
  */
+
+@JsonSerialize(using = JsonChapterSerializer.class)
+@JsonDeserialize(using = JsonChapterDeserializer.class)
 public class Chapter {
     //Warning, this index should be reseted when changing
     //book that will currently edited
@@ -90,4 +99,20 @@ public class Chapter {
     public void addOption(Chapter chapter) {
         options.put(chapter.getId(),chapter);
     }
+
+    public void addOption(int index) {
+        options.put(index,null);
+    }
+
+    public int[] getIndexes() {
+         return (int[]) ArrayUtils.toPrimitive(options.keySet().toArray(new Integer[0]));
+
+    }
+/*
+    public int[] getIndexes() {
+
+
+
+        // return (int[]) ArrayUtils.toPrimitive(options.keySet().toArray(new Integer[0]));
+    }*/
 }

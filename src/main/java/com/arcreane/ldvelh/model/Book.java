@@ -25,6 +25,11 @@ public class Book {
 
     public void initialize() {
         Chapter.setGlobalIndex(globalIndexValue);
+        for (var chapter : chapters.values()) {
+            for (var optionId : chapter.getIndexes()) {
+               chapter.addOption(getChapterById(optionId));
+            }
+        }
     }
 
     //region Getter / Setter
@@ -76,7 +81,9 @@ public class Book {
                 '}';
     }
 
-    public Chapter getChapter(int parseInt) {
+    public Chapter getChapterById(int parseInt) {
         return chapters.get(parseInt);
     }
+
+
 }

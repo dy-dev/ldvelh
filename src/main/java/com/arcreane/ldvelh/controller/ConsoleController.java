@@ -220,7 +220,7 @@ public class ConsoleController {
         var chapterIndexes = scan.nextLine().split(",");
         if (chapterIndexes.length > 0) {
             for (var index : chapterIndexes) {
-                var chapter = currentBook.getChapter(Integer.parseInt(index));
+                var chapter = currentBook.getChapterById(Integer.parseInt(index));
                 if (chapter == null) {
                     System.out.println("Chapter does not exists, type \"y\" to create it or any other key not to ? " +
                             "(chapterId will be modified because they are automatically generated)");
@@ -259,7 +259,7 @@ public class ConsoleController {
     public void modifyExistingChapter() {
         displayChapterList();
         var chapterIndex = Integer.parseInt(scan.nextLine());
-        currentChapter = currentBook.getChapter(chapterIndex);
+        currentChapter = currentBook.getChapterById(chapterIndex);
         showMenu(MenuType.CHAPTER);
     }
     //endregion

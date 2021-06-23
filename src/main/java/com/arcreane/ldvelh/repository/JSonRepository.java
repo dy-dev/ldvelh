@@ -10,7 +10,7 @@ import java.io.IOException;
 /**
  * Repository in the form of JSon files saved on disk
  */
-public class JSonRepository {
+public class JSonRepository implements IRepository {
     String path;
 
     /**
@@ -34,6 +34,7 @@ public class JSonRepository {
      * Then saves the book by calling the {@link #saveBook(Book)} method
      * @param book
      */
+    @Override
     public void addBook(Book book) {
         String bookDirectory = path + "\\" + book.getTitle();
         File directory = new File(bookDirectory);
@@ -41,11 +42,14 @@ public class JSonRepository {
         saveBook(book);
     }
 
+
+
     /**
      * Method calling the ObjectMapper of the Jackson Library to convert the javabean Book object
      * to a json file
      * @param book
      */
+    @Override
     public void saveBook(Book book) {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
@@ -55,6 +59,7 @@ public class JSonRepository {
         }
     }
 
+    @Override
     public String[] listLibraryBooks() {
         File directory = new File(path);
         return directory.list(new FilenameFilter() {
@@ -70,6 +75,7 @@ public class JSonRepository {
      * @param index
      * @return
      */
+    @Override
     public Book getBook(int index) {
         return null;
     }
@@ -80,6 +86,7 @@ public class JSonRepository {
      * @param bookTitle
      * @return
      */
+    @Override
     public Book findBookWithTitle(String bookTitle) {
         String bookDirName = path + "\\" + bookTitle;
         File directory = new File(bookDirName);
@@ -90,11 +97,15 @@ public class JSonRepository {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             Book book = objectMapper.readValue(new File(bookDirName+"\\content.json"), Book.class);
-            book.initialize();
             return book;
         } catch (IOException e) {
             e.printStackTrace();
             return null;
         }
+    }
+
+    @Override
+    public void saveCover(Book book) {
+
     }
 }

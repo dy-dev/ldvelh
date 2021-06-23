@@ -3,6 +3,7 @@ package com.arcreane.ldvelh.controller;
 import com.arcreane.ldvelh.model.Book;
 import com.arcreane.ldvelh.model.Chapter;
 import com.arcreane.ldvelh.service.EditorService;
+import com.arcreane.ldvelh.service.IService;
 import com.arcreane.ldvelh.service.PlayerService;
 
 import java.util.Scanner;
@@ -13,7 +14,7 @@ import java.util.function.Supplier;
  * Class to control the flow of the data.
  * In this case, allow the user to interact with the model
  */
-public class ConsoleController {
+public class ConsoleController implements IController {
 
     private Menus menus;
     private Scanner scan;
@@ -24,7 +25,7 @@ public class ConsoleController {
 
     private Book currentBook;
     private Chapter currentChapter;
-    private EditorService editorService;
+    private IService service;
     private PlayerService playerService;
 
     /**
@@ -37,11 +38,11 @@ public class ConsoleController {
     /**
      * Constructor taking  2 parameters
      *
-     * @param editorService
+     * @param iService
      * @param playerService
      */
-    public ConsoleController(EditorService editorService, PlayerService playerService) {
-        this.editorService = editorService;
+    public ConsoleController(IService iService, PlayerService playerService) {
+        this.service = iService;
         this.playerService = playerService;
         menus = new Menus();
         keepEditing = true;
@@ -69,6 +70,7 @@ public class ConsoleController {
     /**
      * Method used to access users feedback
      */
+    @Override
     public String getUserSelection() {
         return scan.nextLine();
     }
@@ -76,6 +78,7 @@ public class ConsoleController {
     /**
      * Entry function to start the interaction
      */
+    @Override
     public void startApp() {
         showMenu(MenuType.MAIN);
         scan.close();
@@ -87,6 +90,7 @@ public class ConsoleController {
      *
      * @param type
      */
+    @Override
     public void showMenu(MenuType type) {
         //The menu is a reference to the method to call depending on the menu type passed in parameter
         Consumer<ConsoleController> menu = null;
@@ -139,11 +143,12 @@ public class ConsoleController {
     /**
      * Method called when the user wants to create a book
      */
+    @Override
     public void createBook() {
         System.out.println("What is the book title?");
         String title = scan.nextLine();
         currentBook = new Book(title);
-        editorService.addBookToLibrary(currentBook);
+        service.addBookToLibrary(currentBook);
         showMenu(MenuType.BOOK);
     }
 
@@ -151,15 +156,17 @@ public class ConsoleController {
      * Method called to modify a book
      * Start by displaying all available books, then ask the user to select one
      */
+    @Override
     public void modifyBook() {
         int i = 0;
-        var bookList = editorService.getExistingBookList();
+        var bookList = service.getExistingBookList();
         for (var book : bookList) {
             System.out.println((i++) + " : " + book);
         }
         int index = Integer.parseInt(scan.nextLine());
         String bookTitle = bookList[index];
-        currentBook = editorService.getBookWithTitle(bookTitle);
+        currentBook = service.getBookWithTitle(bookTitle);
+        service.parseBookForMissingChapter(currentBook);
         System.out.println(currentBook);
         showMenu(MenuType.BOOK);
     }
@@ -168,11 +175,11 @@ public class ConsoleController {
     /**
      * Method called when the user wants to create a new chapter to the current book
      */
+    @Override
     public void createNewChapter() {
         currentChapter = new Chapter();
         if (currentBook != null) {
-            currentBook.addChapter(currentChapter);
-
+            currentChapter = service.addChapter(currentBook);
             showMenu(MenuType.CHAPTER);
         } else {
             System.out.println("Warning you have not chosen the book to which add this new chapter");
@@ -209,11 +216,13 @@ public class ConsoleController {
     /**
      * Method called when the user wants to save his changes
      */
+    @Override
     public void saveChanges() {
         if (currentBook != null)
-            editorService.saveBookContent(currentBook);
+            service.saveBookContent(currentBook);
     }
 
+    @Override
     public void linkOptions() {
         System.out.println("Enter the chapters id to which the current chapter can lead to (separate the id with commas) ");
         displayChapterList();
@@ -237,6 +246,11 @@ public class ConsoleController {
                     currentChapter.addOption(chapter);
             }
         }
+    }
+
+    @Override
+    public void setService(IService myService) {
+
     }
 
     /***

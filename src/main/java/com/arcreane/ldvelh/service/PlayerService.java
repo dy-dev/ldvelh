@@ -1,12 +1,13 @@
 package com.arcreane.ldvelh.service;
 
+import com.arcreane.ldvelh.repository.IRepository;
 import com.arcreane.ldvelh.repository.JSonRepository;
 
 /**
  * Class used by the controller to manage all the player  functionnalities
  */
 public class PlayerService {
-    JSonRepository repository;
+    IRepository repository;
 
     /**
      * Default Constructor

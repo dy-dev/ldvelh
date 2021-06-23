@@ -2,26 +2,22 @@ package com.arcreane.ldvelh.service;
 
 import com.arcreane.ldvelh.model.Book;
 import com.arcreane.ldvelh.model.Chapter;
-import com.arcreane.ldvelh.repository.DBRepository;
+import com.arcreane.ldvelh.repository.IRepository;
 
-public class OCREditorService {
-    DBRepository repository;
+public class OCREditorService implements IService{
+    IRepository repository;
 
     public OCREditorService() {
-        repository = new DBRepository();
+
     }
 
-    public void scanBookCover(Book scannedBook) {
-        //Process to save the cover in DB
-        repository.addCoverToDB();
+    @Override
+    public void addBookCover(Book scannedBook) {
+        repository.saveCover(scannedBook);
     }
 
-    public void scanBook(Book book) {
-        ///Process to get an image of the front cover and extract informations
-        repository.saveBookToDatabase(book);
-    }
-
-    public int scanChapter(Book scannedBook) {
+    @Override
+    public Chapter addChapter(Book book) {
         Chapter chapter = new Chapter();
         //recoginze text and caption
         chapter.setText("Recognized text");
@@ -29,24 +25,46 @@ public class OCREditorService {
 
         //Link are in bold in text that is how they are recognized
         chapter.addOption(1);
-        repository.addChapter(chapter);
-        return 0;
+        book.addChapter(chapter);
+        return chapter;
     }
 
-    public void saveChanges() {
-        repository.recordChanges();
-    }
-
-    public void checkProgress() {
+    /*public void checkProgress() {
         repository.loadSavePages();
-    }
+    }*/
 
-    public void parseBookForMissingChapter(Book scannedBook) {
-        for(var chapter : scannedBook.getChapters().values()){
+    public void parseBookForMissingChapter(Book book) {
+        for(var chapter : book.getChapters().values()){
             for(var options : chapter.getOptions().entrySet()){
-                chapter.getOptions().put(options.getKey(), scannedBook.getChapterById(options.getKey()));
+                chapter.getOptions().put(options.getKey(), book.getChapterById(options.getKey()));
             }
         }
     }
+
+    @Override
+    public void addBookToLibrary(Book book) {
+        repository.addBook(book);
+    }
+
+    @Override
+    public void saveBookContent(Book book) {
+        repository.saveBook(book);
+    }
+
+    @Override
+    public String[] getExistingBookList() {
+        return new String[0];
+    }
+
+    @Override
+    public Book getBookWithTitle(String bookTitle) {
+        return null;
+    }
+
+    @Override
+    public void setRepository(IRepository myRepository) {
+        repository = myRepository;
+    }
+
 
 }

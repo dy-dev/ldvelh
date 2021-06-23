@@ -23,14 +23,6 @@ public class Book {
         Chapter.setGlobalIndex(0);
    }
 
-    public void initialize() {
-        Chapter.setGlobalIndex(globalIndexValue);
-        for (var chapter : chapters.values()) {
-            for (var optionId : chapter.getIndexes()) {
-               chapter.addOption(getChapterById(optionId));
-            }
-        }
-    }
 
     //region Getter / Setter
 

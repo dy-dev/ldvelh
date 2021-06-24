@@ -3,7 +3,10 @@ package com.arcreane.ldvelh.controller;
 import com.arcreane.ldvelh.model.Book;
 import com.arcreane.ldvelh.service.IService;
 import com.arcreane.ldvelh.service.OCREditorService;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter @Setter
 public class OCRController implements IController {
     IService service;
     Book scannedBook;
@@ -12,7 +15,6 @@ public class OCRController implements IController {
 
     @Override
     public void startApp() {
-        service = new OCREditorService();
         createBook();
         scanCover();
         System.out.println("Press end button to finish scan, press next to start scanning a new chapter");
@@ -82,6 +84,6 @@ public class OCRController implements IController {
 
     @Override
     public void setService(IService myService) {
-
+        service = myService;
     }
 }

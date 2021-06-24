@@ -5,6 +5,8 @@ import com.arcreane.ldvelh.model.Chapter;
 import com.arcreane.ldvelh.service.EditorService;
 import com.arcreane.ldvelh.service.IService;
 import com.arcreane.ldvelh.service.PlayerService;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Scanner;
 import java.util.function.Consumer;
@@ -14,6 +16,7 @@ import java.util.function.Supplier;
  * Class to control the flow of the data.
  * In this case, allow the user to interact with the model
  */
+@Getter @Setter
 public class ConsoleController implements IController {
 
     private Menus menus;
@@ -26,45 +29,18 @@ public class ConsoleController implements IController {
     private Book currentBook;
     private Chapter currentChapter;
     private IService service;
-    private PlayerService playerService;
+//    private PlayerService playerService;
 
     /**
      * Default constructor
      */
-    public ConsoleController() {
-        this(new EditorService(), new PlayerService());
-    }
-
-    /**
-     * Constructor taking  2 parameters
-     *
-     * @param iService
-     * @param playerService
-     */
-    public ConsoleController(IService iService, PlayerService playerService) {
-        this.service = iService;
-        this.playerService = playerService;
+    public ConsoleController(/*PlayerService playerService*/) {
+//        this.playerService = playerService;
         menus = new Menus();
         keepEditing = true;
         scan = new Scanner(System.in);
         currentBook = null;
         currentChapter = null;
-    }
-
-    /***
-     * List of getter / setter
-     * Part of java beans philosophy
-     */
-    public boolean isKeepEditing() {
-        return keepEditing;
-    }
-
-    public boolean isEditBook() {
-        return editBook;
-    }
-
-    public boolean isEditChapter() {
-        return editChapter;
     }
 
     /**
@@ -250,7 +226,7 @@ public class ConsoleController implements IController {
 
     @Override
     public void setService(IService myService) {
-
+        service = myService;
     }
 
     /***

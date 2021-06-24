@@ -3,13 +3,13 @@ package com.arcreane.ldvelh.service;
 import com.arcreane.ldvelh.model.Book;
 import com.arcreane.ldvelh.model.Chapter;
 import com.arcreane.ldvelh.repository.IRepository;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter @Setter @NoArgsConstructor
 public class OCREditorService implements IService{
     IRepository repository;
-
-    public OCREditorService() {
-
-    }
 
     @Override
     public void addBookCover(Book scannedBook) {
@@ -60,11 +60,4 @@ public class OCREditorService implements IService{
     public Book getBookWithTitle(String bookTitle) {
         return null;
     }
-
-    @Override
-    public void setRepository(IRepository myRepository) {
-        repository = myRepository;
-    }
-
-
 }

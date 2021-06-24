@@ -4,10 +4,13 @@ import com.arcreane.ldvelh.model.Book;
 import com.arcreane.ldvelh.model.Chapter;
 import com.arcreane.ldvelh.repository.IRepository;
 import com.arcreane.ldvelh.repository.JSonRepository;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Class used by the controller to manage all the editor functionnalities
  */
+@Getter @Setter
 public class EditorService implements IService {
     private static int globalIndex;
 
@@ -23,15 +26,6 @@ public class EditorService implements IService {
     public EditorService() {
         repository = new JSonRepository("Library");
     }
-
-    public static int getGlobalIndex() {
-        return globalIndex;
-    }
-
-    public static void setGlobalIndex(int globalIndex) {
-        EditorService.globalIndex = globalIndex;
-    }
-
 
     /**
      * Add the book passed in parameter to the library
@@ -88,11 +82,6 @@ public class EditorService implements IService {
         Book bookFound = repository.findBookWithTitle(bookTitle);
         globalIndex = bookFound.getGlobalIndexValue();
         return bookFound;
-    }
-
-    @Override
-    public void setRepository(IRepository myRepository) {
-        repository = myRepository;
     }
 
     @Override

@@ -8,7 +8,8 @@
 
     <context:annotation-config/>
     <context:property-placeholder location="classpath:application.properties"/>
-    <bean class="com.arcreane.ldvelh.controller.ConsoleController"/>
-    <bean class="com.arcreane.ldvelh.service.EditorService"/>
-    <bean id="repository" class="com.arcreane.ldvelh.repository.JSonRepository"/>
+    <context:component-scan base-package="com.arcreane.ldvelh"/>
+<!--    <bean class="com.arcreane.ldvelh.controller.ConsoleController"/>-->
+<!--    <bean class="com.arcreane.ldvelh.service.EditorService"/>-->
+<!--    <bean id="repository" class="com.arcreane.ldvelh.repository.JSonRepository"/>-->
 </beans>

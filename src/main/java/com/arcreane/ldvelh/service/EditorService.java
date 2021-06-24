@@ -8,10 +8,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * Class used by the controller to manage all the editor functionnalities
  */
+@Service
 @Getter @Setter @NoArgsConstructor
 public class EditorService implements IService {
     private static int globalIndex;

@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Repository;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -14,6 +16,7 @@ import java.io.IOException;
 /**
  * Repository in the form of JSon files saved on disk
  */
+@Repository
 @Getter @Setter @NoArgsConstructor
 public class JSonRepository implements IRepository {
     @Value("${repository.config}")

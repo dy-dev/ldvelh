@@ -8,6 +8,7 @@ import com.arcreane.ldvelh.service.PlayerService;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
 import java.util.Scanner;
 import java.util.function.Consumer;
@@ -17,6 +18,7 @@ import java.util.function.Supplier;
  * Class to control the flow of the data.
  * In this case, allow the user to interact with the model
  */
+@Controller
 @Getter @Setter
 public class ConsoleController implements IController {
 

@@ -5,12 +5,13 @@ import com.arcreane.ldvelh.model.Chapter;
 import com.arcreane.ldvelh.repository.IRepository;
 import com.arcreane.ldvelh.repository.JSonRepository;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
  * Class used by the controller to manage all the editor functionnalities
  */
-@Getter @Setter
+@Getter @Setter @NoArgsConstructor
 public class EditorService implements IService {
     private static int globalIndex;
 
@@ -18,14 +19,6 @@ public class EditorService implements IService {
      * Repository used to serialize the information
      */
     IRepository repository;
-
-    /**
-     * Default constructor
-     * The folder's name holding all the books has been chosen totally arbitrarily
-     */
-    public EditorService() {
-        repository = new JSonRepository("Library");
-    }
 
     /**
      * Add the book passed in parameter to the library

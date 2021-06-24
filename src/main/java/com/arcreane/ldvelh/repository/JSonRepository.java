@@ -2,6 +2,9 @@ package com.arcreane.ldvelh.repository;
 
 import com.arcreane.ldvelh.model.Book;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -10,8 +13,9 @@ import java.io.IOException;
 /**
  * Repository in the form of JSon files saved on disk
  */
+@Getter @Setter @NoArgsConstructor
 public class JSonRepository implements IRepository {
-    String path;
+    private String path;
 
     /**
      * Constructor

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+>
+
+    <bean class="com.arcreane.ldvelh.controller.ConsoleController">
+        <property name="service" ref="service"/>
+    </bean>
+    <bean id="service" class="com.arcreane.ldvelh.service.EditorService">
+        <property name="repository" ref="repository"/>
+    </bean>
+    <bean id="repository" class="com.arcreane.ldvelh.repository.JSonRepository">
+        <property name="path" value="C:\\Users\\Dominique\\ldvelh\\Library"/>
+    </bean>
+
+</beans>

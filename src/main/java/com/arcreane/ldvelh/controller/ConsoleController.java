@@ -7,6 +7,7 @@ import com.arcreane.ldvelh.service.IService;
 import com.arcreane.ldvelh.service.PlayerService;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Scanner;
 import java.util.function.Consumer;
@@ -28,6 +29,7 @@ public class ConsoleController implements IController {
 
     private Book currentBook;
     private Chapter currentChapter;
+    @Autowired
     private IService service;
 //    private PlayerService playerService;
 

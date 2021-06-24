@@ -5,9 +5,11 @@ import com.arcreane.ldvelh.service.IService;
 import com.arcreane.ldvelh.service.OCREditorService;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Getter @Setter
 public class OCRController implements IController {
+    @Autowired
     IService service;
     Book scannedBook;
     public OCRController() {

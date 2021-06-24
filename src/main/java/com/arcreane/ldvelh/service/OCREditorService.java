@@ -6,9 +6,11 @@ import com.arcreane.ldvelh.repository.IRepository;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Getter @Setter @NoArgsConstructor
 public class OCREditorService implements IService{
+    @Autowired
     IRepository repository;
 
     @Override

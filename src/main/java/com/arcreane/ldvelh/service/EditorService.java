@@ -7,6 +7,7 @@ import com.arcreane.ldvelh.repository.JSonRepository;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Class used by the controller to manage all the editor functionnalities
@@ -18,6 +19,7 @@ public class EditorService implements IService {
     /***
      * Repository used to serialize the information
      */
+    @Autowired
     IRepository repository;
 
     /**

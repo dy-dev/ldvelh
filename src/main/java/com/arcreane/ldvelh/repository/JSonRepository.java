@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -15,6 +16,7 @@ import java.io.IOException;
  */
 @Getter @Setter @NoArgsConstructor
 public class JSonRepository implements IRepository {
+    @Value("${repository.config}")
     private String path;
 
     /**

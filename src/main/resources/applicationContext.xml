@@ -7,9 +7,8 @@
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
     <context:annotation-config/>
+    <context:property-placeholder location="classpath:application.properties"/>
     <bean class="com.arcreane.ldvelh.controller.ConsoleController"/>
     <bean class="com.arcreane.ldvelh.service.EditorService"/>
-    <bean id="repository" class="com.arcreane.ldvelh.repository.JSonRepository">
-        <property name="path" value="C:\\Users\\Dominique\\ldvelh\\Library"/>
-    </bean>
+    <bean id="repository" class="com.arcreane.ldvelh.repository.JSonRepository"/>
 </beans>

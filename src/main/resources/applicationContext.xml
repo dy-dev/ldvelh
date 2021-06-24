@@ -3,16 +3,11 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
->
+       default-autowire="byType">
 
-    <bean class="com.arcreane.ldvelh.controller.ConsoleController">
-        <property name="service" ref="service"/>
-    </bean>
-    <bean id="service" class="com.arcreane.ldvelh.service.EditorService">
-        <property name="repository" ref="repository"/>
-    </bean>
+    <bean class="com.arcreane.ldvelh.controller.ConsoleController"/>
+    <bean class="com.arcreane.ldvelh.service.EditorService"/>
     <bean id="repository" class="com.arcreane.ldvelh.repository.JSonRepository">
         <property name="path" value="C:\\Users\\Dominique\\ldvelh\\Library"/>
     </bean>
-
 </beans>

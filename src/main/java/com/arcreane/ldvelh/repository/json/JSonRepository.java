@@ -1,6 +1,7 @@
-package com.arcreane.ldvelh.repository;
+package com.arcreane.ldvelh.repository.json;
 
 import com.arcreane.ldvelh.model.Book;
+import com.arcreane.ldvelh.repository.IRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

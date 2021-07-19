@@ -1,8 +1,11 @@
-package com.arcreane.ldvelh.repository;
+package com.arcreane.ldvelh.repository.db;
 
 import com.arcreane.ldvelh.model.Book;
 import com.arcreane.ldvelh.model.Chapter;
+import com.arcreane.ldvelh.repository.IRepository;
+import org.springframework.stereotype.Repository;
 
+//@Repository
 public class DBRepository implements IRepository {
     public DBRepository() {
     }

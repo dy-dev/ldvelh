@@ -1,12 +1,15 @@
-package com.arcreane.ldvelh.controller;
+package com.arcreane.ldvelh.controller.ocr;
 
+import com.arcreane.ldvelh.controller.IController;
+import com.arcreane.ldvelh.controller.MenuType;
 import com.arcreane.ldvelh.model.Book;
 import com.arcreane.ldvelh.service.IService;
-import com.arcreane.ldvelh.service.OCREditorService;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
+//@Controller
 @Getter @Setter
 public class OCRController implements IController {
     @Autowired

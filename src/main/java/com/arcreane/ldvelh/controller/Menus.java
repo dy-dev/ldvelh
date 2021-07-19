@@ -1,5 +1,7 @@
 package com.arcreane.ldvelh.controller;
 
+import com.arcreane.ldvelh.controller.console.ConsoleController;
+
 /**
  * Class used to display all necessary menu when manipulating the
  * model in a console application

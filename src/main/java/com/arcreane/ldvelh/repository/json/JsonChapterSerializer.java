@@ -1,4 +1,4 @@
-package com.arcreane.ldvelh.repository;
+package com.arcreane.ldvelh.repository.json;
 
 import com.arcreane.ldvelh.model.Chapter;
 import com.fasterxml.jackson.core.JsonGenerator;

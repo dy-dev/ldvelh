@@ -1,7 +1,7 @@
 package com.arcreane.ldvelh.model;
 
-import com.arcreane.ldvelh.repository.JsonChapterDeserializer;
-import com.arcreane.ldvelh.repository.JsonChapterSerializer;
+import com.arcreane.ldvelh.repository.json.JsonChapterDeserializer;
+import com.arcreane.ldvelh.repository.json.JsonChapterSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.apache.commons.lang3.ArrayUtils;

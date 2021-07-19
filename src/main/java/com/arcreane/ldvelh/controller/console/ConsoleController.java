@@ -1,14 +1,16 @@
-package com.arcreane.ldvelh.controller;
+package com.arcreane.ldvelh.controller.console;
 
+import com.arcreane.ldvelh.controller.IController;
+import com.arcreane.ldvelh.controller.MenuType;
+import com.arcreane.ldvelh.controller.Menus;
 import com.arcreane.ldvelh.model.Book;
 import com.arcreane.ldvelh.model.Chapter;
-import com.arcreane.ldvelh.service.EditorService;
 import com.arcreane.ldvelh.service.IService;
-import com.arcreane.ldvelh.service.PlayerService;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Scanner;
 import java.util.function.Consumer;
@@ -257,4 +259,12 @@ public class ConsoleController implements IController {
         showMenu(MenuType.CHAPTER);
     }
     //endregion
+
+    @RequestMapping("/display-home")
+    public String display(){
+        System.out.println("Coucou on est passé par là");
+        return "";
+    }
+
+
 }

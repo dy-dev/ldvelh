@@ -1,9 +1,9 @@
-package com.arcreane.ldvelh.service;
+package com.arcreane.ldvelh.service.editor;
 
 import com.arcreane.ldvelh.model.Book;
 import com.arcreane.ldvelh.model.Chapter;
 import com.arcreane.ldvelh.repository.IRepository;
-import com.arcreane.ldvelh.repository.JSonRepository;
+import com.arcreane.ldvelh.service.IService;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

@@ -7,12 +7,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Repository in the form of JSon files saved on disk
@@ -23,21 +24,24 @@ public class JSonRepository implements IRepository {
     @Value("${repository.config}")
     private String path;
 
+//    public JSonRepository(String saved_games) {
+//    }
+
     /**
      * Constructor
      * It starts by checking if the library folder exists and if it doesn't it creates it
      *
      * @param subDir Folder where to save the files
      */
-    public JSonRepository(String subDir) {
-        path = System.getProperty("user.home") + "\\ldvelh\\" + subDir;
-        File directory = new File(path);
-        if (! directory.exists()){
-            System.out.println("Create path : " + path);
-            directory.mkdirs(); //This method create the whole folder hierarchy if needs be
-        }
-
-    }
+//    public JSonRepository(String subDir) {
+//        path = System.getProperty("user.home") + "\\ldvelh\\" + subDir;
+//        File directory = new File(path);
+//        if (! directory.exists()){
+//            System.out.println("Create path : " + path);
+//            directory.mkdirs(); //This method create the whole folder hierarchy if needs be
+//        }
+//
+//    }
 
     /**
      * Create the folder that will contains all files needed by the book (images, sound, items infos...)
@@ -63,21 +67,27 @@ public class JSonRepository implements IRepository {
     public void saveBook(Book book) {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
-            objectMapper.writeValue(new File(path+ "\\" +book.getTitle()+"\\content.json"), book);
+            var f = new File(path+ "\\" +book.getTitle()+"\\content.json");
+            objectMapper.writeValue(f, book);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public String[] listLibraryBooks() {
+    public List<Book> listLibraryBooks() {
         File directory = new File(path);
-        return directory.list(new FilenameFilter() {
+        List<Book> bookList = new ArrayList<>();
+        var titles = directory.list(new FilenameFilter() {
             @Override
             public boolean accept(File current, String name) {
                 return new File(current, name).isDirectory();
             }
         });
+        for (var title:titles) {
+           bookList.add(findBookWithTitle(title)) ;
+        }
+        return bookList;
     }
 
     /**

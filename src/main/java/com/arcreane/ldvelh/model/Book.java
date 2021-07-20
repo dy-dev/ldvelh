@@ -19,6 +19,8 @@ public class Book {
     public Book(String title) {
         this.title = title;
         chapters = new HashMap<>();
+        types = new HashSet<>();
+        types.add(Tags.CONTEMPORARY);
         globalIndexValue = 0;
         Chapter.setGlobalIndex(0);
    }

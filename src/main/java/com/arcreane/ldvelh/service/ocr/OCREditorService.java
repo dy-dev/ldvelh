@@ -1,17 +1,20 @@
-package com.arcreane.ldvelh.service;
+package com.arcreane.ldvelh.service.ocr;
 
 import com.arcreane.ldvelh.model.Book;
 import com.arcreane.ldvelh.model.Chapter;
 import com.arcreane.ldvelh.repository.IRepository;
+import com.arcreane.ldvelh.service.IService;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 //@Service
 @Getter @Setter @NoArgsConstructor
-public class OCREditorService implements IService{
+public class OCREditorService implements IService {
     @Autowired
     IRepository repository;
 
@@ -56,8 +59,8 @@ public class OCREditorService implements IService{
     }
 
     @Override
-    public String[] getExistingBookList() {
-        return new String[0];
+    public List<Book> getExistingBookList() {
+        return null;
     }
 
     @Override

@@ -10,6 +10,8 @@ import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Class used by the controller to manage all the editor functionnalities
  */
@@ -55,7 +57,7 @@ public class EditorService implements IService {
     }
 
     @Override
-    public String[] getExistingBookList() {
+    public List<Book> getExistingBookList() {
         return repository.listLibraryBooks();
     }
 

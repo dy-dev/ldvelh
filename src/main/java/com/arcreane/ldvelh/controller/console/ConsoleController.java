@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Scanner;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -146,7 +147,7 @@ public class ConsoleController implements IController {
             System.out.println((i++) + " : " + book);
         }
         int index = Integer.parseInt(scan.nextLine());
-        String bookTitle = bookList[index];
+        String bookTitle ="";// bookList.get(index).getTitle();
         currentBook = service.getBookWithTitle(bookTitle);
         service.parseBookForMissingChapter(currentBook);
         System.out.println(currentBook);
@@ -260,10 +261,15 @@ public class ConsoleController implements IController {
     }
     //endregion
 
+    //A partir du moment où on fait appel à Thymeleaf, les fichiers html "dynamiques" doivent être
+    // dans le dossier templates
+
     @RequestMapping("/display-home")
-    public String display(){
+    public String display(HttpServletRequest request){
         System.out.println("Coucou on est passé par là");
-        return "";
+        //Il faut que la fonction renvoie le nom du fichier htm que thymeleaf va compléter
+        request.setAttribute("BookList",service.getExistingBookList());
+        return "display-home";
     }
 
 

@@ -5,6 +5,8 @@ import com.arcreane.ldvelh.model.Chapter;
 import com.arcreane.ldvelh.repository.IRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 //@Repository
 public class DBRepository implements IRepository {
     public DBRepository() {
@@ -41,8 +43,8 @@ public class DBRepository implements IRepository {
     }
 
     @Override
-    public String[] listLibraryBooks() {
-        return new String[0];
+    public List<Book> listLibraryBooks() {
+        return null;
     }
 
     @Override

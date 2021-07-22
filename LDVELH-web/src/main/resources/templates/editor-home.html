@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>LVDELH : Les livres dont vous êtes le héros</title>
+</head>
+<body>
+<h1>Bienvenue sur Simplon LDVELH</h1>
+<p>
+<h2>
+    <a href="create-form">Création d'un livre </a>
+</h2>
+</p>
+<table border="1">
+    <tr th:each="book:${BookList}">
+        <td>
+            <!--            <a th:href="@{/edit/{title} (title=${book.title})}" th:text="${book.title}"/>-->
+            <a th:href="${book.title}" th:text="${book.title}"/>
+        </td>
+        <td>
+            <ul th:each="type:${book.types}">
+                <li th:text="${type}"></li>
+            </ul>
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>

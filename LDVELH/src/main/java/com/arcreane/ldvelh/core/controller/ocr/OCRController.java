@@ -19,7 +19,7 @@ public class OCRController implements IController {
 
     @Override
     public void startApp() {
-        createBook();
+        createBook(null);
         scanCover();
         System.out.println("Press end button to finish scan, press next to start scanning a new chapter");
         boolean end = false;
@@ -59,9 +59,10 @@ public class OCRController implements IController {
     }
 
     @Override
-    public void createBook() {
+    public String createBook(Book book) {
         System.out.println("Scan the cover");
         scannedBook = new Book();
+        return "";
     }
 
     @Override

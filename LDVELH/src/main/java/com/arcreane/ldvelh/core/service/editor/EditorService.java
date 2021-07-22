@@ -79,7 +79,8 @@ public class EditorService implements IService {
     @Override
     public Book getBookWithTitle(String bookTitle) {
         Book bookFound = repository.findBookWithTitle(bookTitle);
-        globalIndex = bookFound.getGlobalIndexValue();
+        if(bookFound !=null)
+            globalIndex = bookFound.getGlobalIndexValue();
         return bookFound;
     }
 

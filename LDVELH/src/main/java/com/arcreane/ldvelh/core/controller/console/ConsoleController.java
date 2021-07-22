@@ -123,12 +123,13 @@ public class ConsoleController implements IController {
      * Method called when the user wants to create a book
      */
     @Override
-    public void createBook() {
+    public String createBook(Book book) {
         System.out.println("What is the book title?");
         String title = scan.nextLine();
         currentBook = new Book(title);
         service.addBookToLibrary(currentBook);
         showMenu(MenuType.BOOK);
+        return title;
     }
 
     /***

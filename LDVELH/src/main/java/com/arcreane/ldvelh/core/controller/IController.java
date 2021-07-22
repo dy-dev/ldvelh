@@ -1,5 +1,6 @@
 package com.arcreane.ldvelh.core.controller;
 
+import com.arcreane.ldvelh.core.model.Book;
 import com.arcreane.ldvelh.core.service.IService;
 
 public interface IController {
@@ -9,7 +10,7 @@ public interface IController {
 
     void showMenu(MenuType type);
 
-    void createBook();
+    String createBook(Book book);
 
     void modifyBook();
 

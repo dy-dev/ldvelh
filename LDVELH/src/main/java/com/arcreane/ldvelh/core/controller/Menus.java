@@ -22,7 +22,7 @@ public class Menus {
 
         switch (choice) {
             case "-1" -> controller.quitMenu(MenuType.MAIN);
-            case "1" -> controller.createBook();
+            case "1" -> controller.createBook(null);
             case "2" -> controller.modifyBook();
             case "5" -> controller.saveChanges();
         }

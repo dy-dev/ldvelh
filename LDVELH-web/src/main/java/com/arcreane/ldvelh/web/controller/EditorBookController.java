@@ -1,21 +1,23 @@
-package com.arcreane.ldvelh.controller;
+package com.arcreane.ldvelh.web.controller;
 
-import com.arcreane.ldvelh.core.controller.IController;
 import com.arcreane.ldvelh.core.controller.MenuType;
-import com.arcreane.ldvelh.core.model.Book;
 import com.arcreane.ldvelh.core.service.IService;
+import com.arcreane.ldvelh.web.form.BookForm;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/editor")
 @Getter
 @Setter
-public class EditorBookController implements IController {
+public class EditorBookController {
 
     @Autowired
     private IService service;
@@ -62,65 +64,65 @@ public class EditorBookController implements IController {
         if (book != null) {
             model.addAttribute("book", book);
             return "editor-details";
-        }
-        else return "redirect:/editor/home";
+        } else return "redirect:/editor/home";
     }
 
     @GetMapping("/create-form")
-    public String displayForm(@ModelAttribute("bookToFill") Book bookToFill){
+    public String displayForm(@ModelAttribute("bookToFill") BookForm bookToFill) {
         return "editor-create";
     }
+
     /***
      * Method called when user wants to create a new book through the url
      * /ldvelh/editor/create
      * @return
      */
-    @Override
     @PostMapping("")
-    public String createBook(@ModelAttribute("bookToFill") Book bookToFill) {
-        service.addBookToLibrary(bookToFill);
-        return "editor-validate-create";
+    public String createBook(@Valid @ModelAttribute("bookToFill") BookForm bookToFill, BindingResult result) {
+        if(result.hasErrors())
+            return "editor-create";
+        else {
+            service.addBookToLibrary(BookForm.convertToBook(bookToFill));
+            return "editor-validate-create";
+        }
     }
 
-    @Override
+
+
+    @GetMapping("/book-js")
+    public String showJsHtml(){
+        return "js-book-home";
+    }
+
+
     public String getUserSelection() {
         return null;
     }
 
-    @Override
     public void startApp() {
 
     }
 
-    @Override
     public void showMenu(MenuType type) {
 
     }
 
-
-
-
-    @Override
     public void modifyBook() {
 
     }
 
-    @Override
     public void createNewChapter() {
 
     }
 
-    @Override
     public void saveChanges() {
 
     }
 
-    @Override
     public void linkOptions() {
 
     }
 
-    @Override
     public void setService(IService myService) {
 
     }

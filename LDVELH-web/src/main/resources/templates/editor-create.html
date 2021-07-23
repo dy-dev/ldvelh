@@ -8,6 +8,14 @@
 <form th:action="@{/editor}" th:object="${bookToFill}" method="post">
     <p>
        Title : <input type="text" th:field="*{title}" />
+    <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
+    </p>
+    <p>Types : <select name="Types" multiple="" th:field="*{types}">
+        <option th:each=" type : ${T(com.arcreane.ldvelh.core.model.Tags).values()}"
+                th:value="${type}" th:text="${type}"
+                th:selected="${Types != null AND #arrays.contains(Types, type)}"    ></option>
+    </select>
+    <div th:if="${#fields.hasErrors('types')}" th:errors="*{types}"></div>
     </p>
     <input type="submit" value="OK">
 </form>

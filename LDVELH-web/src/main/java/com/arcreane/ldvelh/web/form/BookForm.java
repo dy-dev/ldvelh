@@ -22,7 +22,7 @@ public class BookForm {
 
     public static Book convertToBook(BookForm bookToFill) {
         Book book = new Book(bookToFill.getTitle());
-        book.setTypes(bookToFill.getTypes());
+        //book.setTypes(bookToFill.getTypes());
         return book;
     }
 

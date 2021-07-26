@@ -20,7 +20,7 @@ public class OCRController implements IController {
     @Override
     public void startApp() {
         createBook(null);
-        scanCover();
+//        scanCover();
         System.out.println("Press end button to finish scan, press next to start scanning a new chapter");
         boolean end = false;
         while(!end){
@@ -30,13 +30,13 @@ public class OCRController implements IController {
         fillMissingChapter();
         saveBook();
     }
-
-
-
-    public void scanCover(){
-        System.out.println("Cover scanned");
-        service.addBookCover(scannedBook);
-    }
+//
+//
+//
+//    public void scanCover(){
+//        System.out.println("Cover scanned");
+//        service.addBookCover(scannedBook);
+//    }
 
     private void fillMissingChapter() {
         service.parseBookForMissingChapter(scannedBook);

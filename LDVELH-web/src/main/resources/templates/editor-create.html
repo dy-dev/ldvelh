@@ -5,7 +5,7 @@
     <title>Création d'un nouveau livre</title>
 </head>
 <body>
-<form th:action="@{/editor}" th:object="${bookToFill}" method="post">
+<form th:action="@{/editor}" th:object="${bookForm}" method="post">
     <p>
        Title : <input type="text" th:field="*{title}" />
     <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>

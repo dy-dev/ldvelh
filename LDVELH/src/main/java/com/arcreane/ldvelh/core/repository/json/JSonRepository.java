@@ -7,18 +7,18 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Repository;
 
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Repository in the form of JSon files saved on disk
  */
-@Repository
+//@Repository
 @Getter @Setter @NoArgsConstructor
 public class JSonRepository implements IRepository {
     @Value("${repository.config}")
@@ -49,11 +49,12 @@ public class JSonRepository implements IRepository {
      * @param book
      */
     @Override
-    public void addBook(Book book) {
+    public Book save(Book book) {
         String bookDirectory = path + "\\" + book.getTitle();
         File directory = new File(bookDirectory);
         directory.mkdir();
         saveBook(book);
+        return book;
     }
 
 
@@ -63,8 +64,7 @@ public class JSonRepository implements IRepository {
      * to a json file
      * @param book
      */
-    @Override
-    public void saveBook(Book book) {
+    private void saveBook(Book book) {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             var f = new File(path+ "\\" +book.getTitle()+"\\content.json");
@@ -75,7 +75,7 @@ public class JSonRepository implements IRepository {
     }
 
     @Override
-    public List<Book> listLibraryBooks() {
+    public List<Book> findAll() {
         File directory = new File(path);
         List<Book> bookList = new ArrayList<>();
         var titles = directory.list(new FilenameFilter() {
@@ -85,20 +85,25 @@ public class JSonRepository implements IRepository {
             }
         });
         for (var title:titles) {
-           bookList.add(findBookWithTitle(title)) ;
+           bookList.add(findBookByTitle(title)) ;
         }
         return bookList;
     }
-
     /**
      * (Useless for now)
      * @param index
      * @return
      */
     @Override
-    public Book getBook(int index) {
-        return null;
+    public Optional<Book> findById(Integer index) {
+        return Optional.empty();
     }
+
+    @Override
+    public boolean existsById(Integer integer) {
+        return false;
+    }
+
 
     /***
      * Retrieves a book in library by using its name
@@ -107,7 +112,7 @@ public class JSonRepository implements IRepository {
      * @return
      */
     @Override
-    public Book findBookWithTitle(String bookTitle) {
+    public Book findBookByTitle(String bookTitle) {
         String bookDirName = path + "\\" + bookTitle;
         File directory = new File(bookDirName);
         if (!directory.exists()) {
@@ -124,8 +129,48 @@ public class JSonRepository implements IRepository {
         }
     }
 
+
+    //region Unused Interface methods
     @Override
-    public void saveCover(Book book) {
+    public Iterable<Book> findAllById(Iterable<Integer> iterable) {
+        return null;
+    }
+
+    @Override
+    public long count() {
+        return 0;
+    }
+
+    @Override
+    public void deleteById(Integer integer) {
 
     }
+
+    @Override
+    public void delete(Book book) {
+
+    }
+
+    @Override
+    public void deleteAllById(Iterable<? extends Integer> iterable) {
+
+    }
+
+    @Override
+    public void deleteAll(Iterable<? extends Book> iterable) {
+
+    }
+
+    @Override
+    public void deleteAll() {
+
+    }
+
+    @Override
+    public <S extends Book> Iterable<S> saveAll(Iterable<S> iterable) {
+        return null;
+    }
+    //endregion
+
+
 }

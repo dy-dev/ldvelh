@@ -10,15 +10,13 @@ public interface IService {
 
     //This method needs to send back the list of books and
     //not only their titles
-    List<Book> getExistingBookList();
+    Iterable<Book> getExistingBookList();
 
     Book getBookWithTitle(String bookTitle);
 
     void saveBookContent(Book book);
 
     void parseBookForMissingChapter(Book book);
-
-    void addBookCover(Book scannedBook);
 
     Chapter addChapter(Book currentBook);
 

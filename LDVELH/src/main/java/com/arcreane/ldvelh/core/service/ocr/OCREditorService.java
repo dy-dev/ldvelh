@@ -18,11 +18,6 @@ public class OCREditorService implements IService {
     IRepository repository;
 
     @Override
-    public void addBookCover(Book scannedBook) {
-        repository.saveCover(scannedBook);
-    }
-
-    @Override
     public Chapter addChapter(Book book) {
         Chapter chapter = new Chapter();
         //recoginze text and caption
@@ -40,21 +35,21 @@ public class OCREditorService implements IService {
     }*/
 
     public void parseBookForMissingChapter(Book book) {
-        for(var chapter : book.getChapters().values()){
+     /*   for(var chapter : book.getChapters().values()){
             for(var options : chapter.getOptions().entrySet()){
                 chapter.getOptions().put(options.getKey(), book.getChapterById(options.getKey()));
             }
-        }
+        }*/
     }
 
     @Override
     public void addBookToLibrary(Book book) {
-        repository.addBook(book);
+        repository.save(book);
     }
 
     @Override
     public void saveBookContent(Book book) {
-        repository.saveBook(book);
+        //repository.updateTest(book);
     }
 
     @Override

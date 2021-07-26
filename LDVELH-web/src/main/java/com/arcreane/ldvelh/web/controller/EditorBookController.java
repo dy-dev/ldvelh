@@ -68,7 +68,7 @@ public class EditorBookController {
     }
 
     @GetMapping("/create-form")
-    public String displayForm(@ModelAttribute("bookToFill") BookForm bookToFill) {
+    public String displayForm(@ModelAttribute BookForm bookToFill) {
         return "editor-create";
     }
 
@@ -78,7 +78,7 @@ public class EditorBookController {
      * @return
      */
     @PostMapping("")
-    public String createBook(@Valid @ModelAttribute("bookToFill") BookForm bookToFill, BindingResult result) {
+    public String createBook(@Valid @ModelAttribute BookForm bookToFill, BindingResult result) {
         if(result.hasErrors())
             return "editor-create";
         else {

@@ -7,7 +7,31 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class WebAppLDVELH {
 
     public static void main(String[] args) {
-        SpringApplication.run(WebAppLDVELH.class, args);
+        var context = SpringApplication.run(WebAppLDVELH.class, args);
+       /* var datasource = context.getBean(DataSource.class);
+
+        Connection con = null;
+
+        try {
+            con = datasource.getConnection();
+            ResultSet rs = con.createStatement().executeQuery("SELECT * FROM Book");
+            while (rs.next()){
+                System.out.println(	rs.getString("Title"));
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        finally {
+            try{
+                if (con != null)
+                    con.close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
+*/
     }
 
 }

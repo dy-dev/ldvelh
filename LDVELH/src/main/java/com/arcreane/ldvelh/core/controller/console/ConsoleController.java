@@ -8,7 +8,10 @@ import com.arcreane.ldvelh.core.model.Chapter;
 import com.arcreane.ldvelh.core.service.IService;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.commons.collections4.IterableUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 import java.util.Scanner;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -144,7 +147,7 @@ public class ConsoleController implements IController {
             System.out.println((i++) + " : " + book);
         }
         int index = Integer.parseInt(scan.nextLine());
-        String bookTitle ="";// bookList.get(index).getTitle();
+        String bookTitle = IterableUtils.toList(bookList).get(index).getTitle();
         currentBook = service.getBookWithTitle(bookTitle);
         service.parseBookForMissingChapter(currentBook);
         System.out.println(currentBook);
@@ -239,10 +242,10 @@ public class ConsoleController implements IController {
      * to ease the user's selection
      */
     private void displayChapterList() {
-        var chapterList = currentBook.getChapters();
+     /*   var chapterList = currentBook.getChapters();
         for (var chapter :chapterList.values()) {
             System.out.println(chapter.getId() + " : " + chapter.getCaption());
-        }
+        }*/
     }
 
     /***

@@ -10,7 +10,7 @@ import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Optional;
 
 /**
  * Class used by the controller to manage all the editor functionnalities
@@ -33,17 +33,17 @@ public class EditorService implements IService {
      */
     @Override
     public void addBookToLibrary(Book book) {
-        repository.addBook(book);
+        repository.save(book);
     }
 
     @Override
     public void parseBookForMissingChapter(Book book) {
-        globalIndex = book.getGlobalIndexValue();
+      /*  globalIndex = book.getGlobalIndexValue();
         for (var chapter : book.getChapters().values()) {
             for (var optionId : chapter.getIndexes()) {
                 chapter.addOption(book.getChapterById(optionId));
             }
-        }
+        }*/
     }
 
     /**
@@ -53,12 +53,12 @@ public class EditorService implements IService {
      */
     @Override
     public void saveBookContent(Book book) {
-        repository.saveBook(book);
+//        repository.updateTest(book);
     }
 
     @Override
-    public List<Book> getExistingBookList() {
-        return repository.listLibraryBooks();
+    public Iterable<Book> getExistingBookList() {
+        return repository.findAll();
     }
 
     /***
@@ -66,8 +66,8 @@ public class EditorService implements IService {
      * @param index
      * @return
      */
-    public Book getBookAtIndex(int index) {
-        return repository.getBook(index);
+    public Optional<Book> getBookAtIndex(int index) {
+        return repository.findById(index);
     }
 
     /**
@@ -78,15 +78,10 @@ public class EditorService implements IService {
      */
     @Override
     public Book getBookWithTitle(String bookTitle) {
-        Book bookFound = repository.findBookWithTitle(bookTitle);
-        if(bookFound !=null)
-            globalIndex = bookFound.getGlobalIndexValue();
+        Book bookFound = repository.findBookByTitle(bookTitle);
+      /*  if(bookFound !=null)
+            globalIndex = bookFound.getGlobalIndexValue();*/
         return bookFound;
-    }
-
-    @Override
-    public void addBookCover(Book scannedBook) {
-
     }
 
     @Override
@@ -94,7 +89,7 @@ public class EditorService implements IService {
         Chapter chapter = new Chapter();
         book.addChapter(chapter);
         chapter.setId(globalIndex++);
-        book.setGlobalIndexValue(globalIndex);
+     //   book.setGlobalIndexValue(globalIndex);
         return chapter;
     }
 }

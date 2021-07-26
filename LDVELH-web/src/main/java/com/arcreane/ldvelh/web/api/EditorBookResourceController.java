@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/api/book")
 @Getter
 @Setter
@@ -30,7 +30,7 @@ public class EditorBookResourceController {
      * @return List of existing books
      */
     @GetMapping()
-    public @ResponseBody List<Book> list() {
+    public Iterable<Book> list() {
         return  service.getExistingBookList();
     }
 //
@@ -42,7 +42,7 @@ public class EditorBookResourceController {
 //     * @return
 //     */
     @GetMapping("/{title}")
-    public  @ResponseBody  Book detail(@PathVariable("title") String bookTitle) {
+    public Book detail(@PathVariable("title") String bookTitle) {
         return service.getBookWithTitle(bookTitle);
     }
 
